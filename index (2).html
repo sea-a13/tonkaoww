@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SEA ♥ TONKAOW | 3rd Month Anniversary 💗</title>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Prompt', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: radial-gradient(circle at top left, #2b123a, #170b24 55%, #0f0718 100%);
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            padding: 20px;
+            position: relative;
+        }
+
+        /* พื้นหลังแสงฟุ้งและหัวใจลอย */
+        .bg-glow {
+            position: fixed;
+            width: 320px;
+            height: 320px;
+            border-radius: 50%;
+            background: rgba(255, 105, 180, 0.16);
+            filter: blur(80px);
+            z-index: 0;
+            pointer-events: none;
+        }
+        .glow-1 { top: -80px; left: -80px; }
+        .glow-2 { bottom: -80px; right: -80px; background: rgba(186, 85, 211, 0.18); }
+
+        .floating-particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            bottom: -30px;
+            font-size: 1.2rem;
+            opacity: 0.45;
+            animation: floatUp linear infinite;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) rotate(0deg) scale(0.8);
+                opacity: 0;
+            }
+            20% { opacity: 0.5; }
+            80% { opacity: 0.5; }
+            100% {
+                transform: translateY(-105vh) rotate(360deg) scale(1.2);
+                opacity: 0;
+            }
+        }
+
+        /* แบดจ์ด้านบน */
+        .top-badge {
+            z-index: 2;
+            background: rgba(255, 182, 193, 0.12);
+            border: 1px solid rgba(255, 182, 193, 0.35);
+            padding: 6px 18px;
+            border-radius: 999px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #ffd1dc;
+            letter-spacing: 1px;
+            margin-bottom: 16px;
+            box-shadow: 0 0 18px rgba(255, 105, 180, 0.25);
+            backdrop-filter: blur(8px);
+            animation: pulseGlow 2.5s infinite ease-in-out;
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% { box-shadow: 0 0 12px rgba(255, 105, 180, 0.25); }
+            50% { box-shadow: 0 0 22px rgba(255, 105, 180, 0.55); }
+        }
+
+        /* กล่องหลัก */
+        .container {
+            z-index: 2;
+            background: rgba(255, 255, 255, 0.07);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            border: 1px solid rgba(255, 182, 193, 0.25);
+            border-radius: 28px;
+            padding: 36px 28px;
+            width: 100%;
+            max-width: 440px;
+            text-align: center;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(255, 182, 193, 0.05);
+            position: relative;
+            transition: all 0.4s ease;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .icon-header {
+            font-size: 2.6rem;
+            margin-bottom: 8px;
+            display: inline-block;
+            animation: bounceSlow 2s infinite ease-in-out;
+        }
+
+        @keyframes bounceSlow {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-6px); }
+        }
+
+        h1 {
+            font-size: 1.55rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            background: linear-gradient(90deg, #ffb6c1, #ff69b4, #ffd1dc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        p.subtitle {
+            font-size: 0.92rem;
+            color: #e2cfe8;
+            margin-bottom: 22px;
+            line-height: 1.5;
+        }
+
+        /* หน้าแรก: ประตูเช็คอิน */
+        input[type="text"] {
+            width: 100%;
+            padding: 14px;
+            border-radius: 14px;
+            border: 2px solid rgba(255, 182, 193, 0.3);
+            background: rgba(0, 0, 0, 0.35);
+            color: #fff;
+            font-size: 1.3rem;
+            text-align: center;
+            letter-spacing: 6px;
+            outline: none;
+            margin-bottom: 12px;
+            transition: 0.3s;
+        }
+
+        input:focus {
+            border-color: #ff69b4;
+            box-shadow: 0 0 16px rgba(255, 105, 180, 0.45);
+        }
+
+        .btn {
+            background: linear-gradient(45deg, #ff5e9c, #ff8da1);
+            color: white;
+            border: none;
+            padding: 13px 28px;
+            border-radius: 14px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            width: 100%;
+            box-shadow: 0 6px 18px rgba(255, 94, 156, 0.35);
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 24px rgba(255, 94, 156, 0.5);
+        }
+
+        .btn:active {
+            transform: scale(0.97);
+        }
+
+        .hint-box {
+            margin-top: 16px;
+            padding: 12px 14px;
+            background: rgba(255, 105, 180, 0.16);
+            border: 1px dashed #ff8da1;
+            border-radius: 14px;
+            color: #ffe0e9;
+            font-size: 0.9rem;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .error-text {
+            color: #ff7b89;
+            font-size: 0.85rem;
+            margin-bottom: 10px;
+            min-height: 20px;
+        }
+
+        /* หน้าที่สอง: คำถาม */
+        .tease-text {
+            font-size: 0.88rem;
+            color: #ffb6c1;
+            min-height: 22px;
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+
+        .options-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            margin-top: 10px;
+            position: relative;
+            min-height: 125px;
+        }
+
+        .option-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1.5px solid rgba(255, 182, 193, 0.4);
+            color: #fff;
+            padding: 14px;
+            border-radius: 16px;
+            font-size: 1.08rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.25s, transform 0.2s, border-color 0.25s;
+            width: 100%;
+        }
+
+        .option-btn:hover {
+            background: rgba(255, 105, 180, 0.28);
+            border-color: #ff8da1;
+        }
+
+        /* หน้าที่สาม: แสดงความยินดี */
+        .date-pill {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 5px 14px;
+            border-radius: 999px;
+            font-size: 0.8rem;
+            color: #ffd1dc;
+            margin-bottom: 12px;
+            border: 1px solid rgba(255, 182, 193, 0.25);
+        }
+
+        .congrats-title {
+            font-size: 1.32rem;
+            font-weight: 600;
+            color: #ff9ebb;
+            margin-bottom: 16px;
+            line-height: 1.55;
+        }
+
+        .love-message {
+            background: rgba(0, 0, 0, 0.28);
+            padding: 20px;
+            border-radius: 18px;
+            font-size: 0.98rem;
+            line-height: 1.85;
+            color: #fff0f5;
+            border-left: 4px solid #ff69b4;
+            text-align: left;
+            margin-bottom: 18px;
+            box-shadow: inset 0 0 15px rgba(255, 105, 180, 0.08);
+        }
+
+        .heart-spam-btn {
+            background: rgba(255, 105, 180, 0.2);
+            border: 1px solid #ff8da1;
+            color: #ffd1dc;
+            padding: 10px 20px;
+            border-radius: 999px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .heart-spam-btn:hover {
+            background: rgba(255, 105, 180, 0.38);
+            transform: scale(1.04);
+        }
+
+        .heart-spam-btn:active {
+            transform: scale(0.95);
+        }
+
+        .footer-credit {
+            z-index: 2;
+            margin-top: 18px;
+            font-size: 0.78rem;
+            color: rgba(255, 209, 220, 0.55);
+            letter-spacing: 0.5px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-8px); }
+            75% { transform: translateX(8px); }
+        }
+
+        .shake {
+            animation: shake 0.3s ease-in-out;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-glow glow-1"></div>
+    <div class="bg-glow glow-2"></div>
+    <div id="particles" class="floating-particles"></div>
+
+    <div class="top-badge">✨ SEA ♥ TONKAOW • 3RD MONTH ✨</div>
+
+    <!-- หน้า 1: ประตูเช็คอิน -->
+    <div id="page1" class="container">
+        <div class="icon-header">🔐</div>
+        <h1>ประตูเช็คอินของต้นข้าว</h1>
+        <p class="subtitle">กรอกรหัสผ่าน 6 หลักเพื่อปลดล็อกของขวัญครบรอบ 3 เดือนของเรานะครับ</p>
+        
+        <input type="text" id="passInput" placeholder="••••••" maxlength="6" inputmode="numeric">
+        <div id="errorMsg" class="error-text"></div>
+        <button class="btn" onclick="checkPassword()">ปลดล็อกหัวใจของซี 💗</button>
+
+        <div id="hintBox" class="hint-box hidden">
+            💡 <b>คำใบ้:</b> วันครบรอบคือวันอะไรวันนั้นแหละๆๆ
+        </div>
+    </div>
+
+    <!-- หน้า 2: คำถามวัดใจ -->
+    <div id="page2" class="container hidden">
+        <div class="icon-header">🤔</div>
+        <h1>คำถามวัดใจต้นข้าว!</h1>
+        <p class="subtitle">ตอบให้ถูกนะ... อะไรเอ่ยน่ารักที่สุดในโลก?</p>
+        
+        <div id="teaseText" class="tease-text"></div>
+
+        <div id="optionsContainer" class="options-wrapper">
+            <button id="btnCat" class="option-btn" onclick="handleCatClick()">1. แมว 🐱</button>
+            <button id="btnFan" class="option-btn" onclick="handleFanClick()">2. แฟนซี (ต้นข้าว) 👧🏻</button>
+        </div>
+    </div>
+
+    <!-- หน้า 3: แสดงความยินดี -->
+    <div id="page3" class="container hidden">
+        <div class="date-pill">📅 14.08.69 ➔ 14.11.69 (ครบ 3 เดือนแล้ว!)</div>
+        <div style="font-size: 2.8rem; margin-bottom: 8px;">🎉🍦😺</div>
+        <h2 class="congrats-title">
+            ถูกต้องงงง แฟนซีน่ารักกที่สุดดดดดด<br>ไม่มีใครเทียบแฟนซีได้แล้วววว🍦😺
+        </h2>
+        
+        <div class="love-message">
+            ขอบคุณที่ข้าวอยู่กับซีมาถึงเดือนที่ 3 ถึงเราจะทะเลาะกันบ่อย แต่ซีไม่เคยรักข้าวน้อยลงเลย ซีไม่เคยเบื่อ ไม่เคยรำคาญอะไรข้าวเลยสักครั้งเดียว ซีรักข้าวววที่สุดดนะะะะ 💗
+        </div>
+
+        <button class="heart-spam-btn" onclick="sendExtraLove()">
+            ส่งหัวใจให้ซี <span id="heartCount">0</span> 💗
+        </button>
+    </div>
+
+    <div class="footer-credit">Made with love by SEA for TONKAOW 💕</div>
+
+    <script>
+        let wrongPassCount = 0;
+        let catClickCount = 0;
+        let loveCounter = 0;
+
+        // สร้างเอฟเฟกต์หัวใจและดาวลอยพื้นหลัง
+        const particleContainer = document.getElementById('particles');
+        const symbols = ['💗', '✨', '🌸', '💖', '🤍', '🍦'];
+        for (let i = 0; i < 18; i++) {
+            const p = document.createElement('div');
+            p.className = 'particle';
+            p.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+            p.style.left = Math.random() * 100 + 'vw';
+            p.style.animationDuration = (Math.random() * 6 + 6) + 's';
+            p.style.animationDelay = (Math.random() * 5) + 's';
+            p.style.fontSize = (Math.random() * 0.8 + 0.8) + 'rem';
+            particleContainer.appendChild(p);
+        }
+
+        // กด Enter เพื่อส่งรหัสได้
+        document.getElementById("passInput").addEventListener("keypress", function(event) {
+            if (event.key === "Enter") {
+                checkPassword();
+            }
+        });
+
+        function checkPassword() {
+            const input = document.getElementById('passInput');
+            const errorMsg = document.getElementById('errorMsg');
+            const hintBox = document.getElementById('hintBox');
+            const page1 = document.getElementById('page1');
+
+            if (input.value.trim() === '140869') {
+                page1.classList.add('hidden');
+                document.getElementById('page2').classList.remove('hidden');
+            } else {
+                wrongPassCount++;
+                errorMsg.textContent = `รหัสยังไม่ถูกนะต้นข้าว ลองใหม่อีกที (ผิดครั้งที่ ${wrongPassCount})`;
+                
+                page1.classList.remove('shake');
+                void page1.offsetWidth; 
+                page1.classList.add('shake');
+                input.value = '';
+
+                // ผิดครั้งที่ 2 แสดงคำใบ้
+                if (wrongPassCount >= 2) {
+                    hintBox.classList.remove('hidden');
+                }
+            }
+        }
+
+        function handleCatClick() {
+            catClickCount++;
+            const container = document.getElementById('optionsContainer');
+            const btnCat = document.getElementById('btnCat');
+            const btnFan = document.getElementById('btnFan');
+            const teaseText = document.getElementById('teaseText');
+
+            if (catClickCount === 1) {
+                // ครั้งที่ 1: สลับตำแหน่งตัวเลือก
+                container.insertBefore(btnFan, btnCat);
+                teaseText.textContent = "เอ๊ะ! มือลั่นหรือเปล่าต้นข้าว ลองดูใหม่ซิ 👀";
+            } else {
+                // ครั้งที่ 2 ขึ้นไป: ย้ายตำแหน่งหนีการคลิก
+                const teases = [
+                    "แน่ะ! ยังจะกดแมวอีก กดไม่โดนหรอก 😜",
+                    "แมวหนีไปแล้ววว กดแฟนซีได้แล้วน้าา 💕",
+                    "ปุ่มแมวไม่ยอมให้กดหรอก แฟนซีน่ารักกว่าเยอะ! 🐱💨"
+                ];
+                teaseText.textContent = teases[(catClickCount - 2) % teases.length];
+                moveButtonAway(btnCat);
+            }
+        }
+
+        function moveButtonAway(btn) {
+            btn.style.position = 'fixed';
+            btn.style.width = 'auto';
+            btn.style.padding = '12px 24px';
+            btn.style.zIndex = '999';
+            btn.style.background = 'rgba(43, 18, 58, 0.9)';
+
+            const maxX = window.innerWidth - btn.offsetWidth - 30;
+            const maxY = window.innerHeight - btn.offsetHeight - 30;
+
+            const randomX = Math.max(20, Math.floor(Math.random() * maxX));
+            const randomY = Math.max(20, Math.floor(Math.random() * maxY));
+
+            btn.style.left = randomX + 'px';
+            btn.style.top = randomY + 'px';
+        }
+
+        function handleFanClick() {
+            document.getElementById('btnCat').classList.add('hidden');
+            document.getElementById('page2').classList.add('hidden');
+            document.getElementById('page3').classList.remove('hidden');
+            launchConfetti();
+        }
+
+        function sendExtraLove() {
+            loveCounter++;
+            document.getElementById('heartCount').textContent = loveCounter;
+            confetti({
+                particleCount: 25,
+                spread: 60,
+                origin: { y: 0.75 },
+                colors: ['#ff69b4', '#ffb6c1', '#ff1493', '#ffffff']
+            });
+        }
+
+        function launchConfetti() {
+            const duration = 3 * 1000;
+            const end = Date.now() + duration;
+
+            (function frame() {
+                confetti({
+                    particleCount: 5,
+                    angle: 60,
+                    spread: 55,
+                    origin: { x: 0 },
+                    colors: ['#ff69b4', '#ffb6c1', '#ffffff']
+                });
+                confetti({
+                    particleCount: 5,
+                    angle: 120,
+                    spread: 55,
+                    origin: { x: 1 },
+                    colors: ['#ff69b4', '#ffb6c1', '#ffffff']
+                });
+
+                if (Date.now() < end) {
+                    requestAnimationFrame(frame);
+                }
+            }());
+        }
+    </script>
+</body>
+</html>
